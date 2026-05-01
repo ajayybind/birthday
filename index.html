@@ -576,43 +576,223 @@
       max-width: 380px;
     }
 
+    /* ══════════════════════════════════════════
+       OYSTER — COMPLETE PREMIUM OVERHAUL
+    ══════════════════════════════════════════ */
     .oyster {
       position: relative;
       cursor: pointer;
-      touch-action: manipulation
+      touch-action: manipulation;
     }
 
     .oyster-shell {
+      position: relative;
       width: 100%;
       aspect-ratio: .9;
       border-radius: 50% 50% 45% 45%/60% 60% 38% 38%;
-      background: linear-gradient(160deg, #0d4a6b, #062740, #041520);
-      border: 2px solid rgba(0, 201, 177, .38);
-      box-shadow: 0 0 16px rgba(0, 201, 177, .18), inset 0 0 22px rgba(0, 0, 0, .5);
+      background: linear-gradient(160deg, #061828 0%, #091630 45%, #0d0520 75%, #030d18 100%);
+      border: 2px solid rgba(0, 201, 177, .45);
+      box-shadow: 0 0 22px rgba(0, 201, 177, .22), 0 0 48px rgba(0, 201, 177, .08), inset 0 0 30px rgba(0, 0, 0, .65);
       overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: border-radius .45s cubic-bezier(.23, 1, .32, 1), box-shadow .45s ease;
+      transition: border-radius .6s cubic-bezier(.23, 1, .32, 1), box-shadow .6s ease;
     }
 
     .oyster.open .oyster-shell {
       border-radius: 12px;
-      box-shadow: 0 0 36px rgba(0, 201, 177, .5), inset 0 0 18px rgba(0, 201, 177, .13);
+      box-shadow: 0 0 44px rgba(0, 201, 177, .55), 0 0 88px rgba(0, 201, 177, .22), inset 0 0 22px rgba(0, 201, 177, .15);
     }
 
+    /* ── Mystical Cosmic Cover ── */
+    .oyster-cover {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background:
+        radial-gradient(ellipse at 30% 25%, rgba(0, 201, 177, .22) 0%, transparent 55%),
+        radial-gradient(ellipse at 72% 78%, rgba(106, 33, 168, .28) 0%, transparent 50%),
+        radial-gradient(ellipse at 50% 50%, rgba(212, 169, 78, .10) 0%, transparent 65%),
+        linear-gradient(160deg, #061828 0%, #091630 45%, #0d0520 75%, #030d18 100%);
+      z-index: 2;
+      overflow: hidden;
+      transition:
+        opacity .55s cubic-bezier(.23, 1, .32, 1) 0s,
+        transform .55s cubic-bezier(.23, 1, .32, 1) 0s,
+        filter .55s ease 0s;
+      will-change: opacity, transform, filter;
+    }
+
+    /* Rotating nebula shimmer */
+    .oyster-cover::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: conic-gradient(from 0deg,
+          rgba(0, 201, 177, .07) 0deg, transparent 40deg,
+          rgba(212, 169, 78, .06) 80deg, transparent 120deg,
+          rgba(106, 33, 168, .07) 160deg, transparent 200deg,
+          rgba(0, 201, 177, .05) 240deg, transparent 280deg,
+          rgba(212, 169, 78, .05) 320deg, transparent 360deg);
+      animation: coverSpin 24s linear infinite;
+      pointer-events: none;
+    }
+
+    /* Radial pulse glow */
+    .oyster-cover::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 50% 50%,
+          rgba(0, 201, 177, .14) 0%,
+          rgba(212, 169, 78, .07) 38%,
+          transparent 70%);
+      animation: coverPulse 3.6s ease-in-out infinite alternate;
+      pointer-events: none;
+    }
+
+    @keyframes coverSpin {
+      from {
+        transform: rotate(0deg);
+      }
+
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes coverPulse {
+      0% {
+        opacity: .45;
+        transform: scale(.93);
+      }
+
+      100% {
+        opacity: 1;
+        transform: scale(1.07);
+      }
+    }
+
+    /* Cover exit — scale up, blur, vanish */
+    .oyster.open .oyster-cover {
+      opacity: 0;
+      transform: scale(1.55);
+      filter: blur(10px);
+      pointer-events: none;
+    }
+
+    /* ── Glowing Pearl Core ── */
+    .cover-core {
+      position: relative;
+      z-index: 4;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 33% 28%,
+          #ffffff 0%,
+          rgba(245, 224, 160, .96) 18%,
+          rgba(0, 201, 177, .75) 46%,
+          rgba(106, 33, 168, .55) 72%,
+          transparent 100%);
+      box-shadow:
+        0 0 10px rgba(245, 224, 160, .95),
+        0 0 26px rgba(0, 201, 177, .78),
+        0 0 50px rgba(0, 201, 177, .45),
+        0 0 82px rgba(212, 169, 78, .28),
+        inset 0 0 12px rgba(255, 255, 255, .4);
+      animation: pearlBreath 2.8s ease-in-out infinite;
+      flex-shrink: 0;
+    }
+
+    @keyframes pearlBreath {
+
+      0%,
+      100% {
+        transform: scale(1);
+        box-shadow:
+          0 0 10px rgba(245, 224, 160, .95),
+          0 0 26px rgba(0, 201, 177, .78),
+          0 0 50px rgba(0, 201, 177, .45),
+          0 0 82px rgba(212, 169, 78, .28),
+          inset 0 0 12px rgba(255, 255, 255, .4);
+      }
+
+      50% {
+        transform: scale(1.15);
+        box-shadow:
+          0 0 18px rgba(245, 224, 160, 1),
+          0 0 42px rgba(0, 201, 177, .95),
+          0 0 80px rgba(0, 201, 177, .65),
+          0 0 124px rgba(212, 169, 78, .42),
+          inset 0 0 18px rgba(255, 255, 255, .52);
+      }
+    }
+
+    /* ── Ripple Rings ── */
+    .cover-ring {
+      position: absolute;
+      border-radius: 50%;
+      border: 1.5px solid;
+      z-index: 3;
+      animation: ripplePulse 3.4s ease-out infinite;
+    }
+
+    .cover-ring-1 {
+      width: 74px;
+      height: 74px;
+      border-color: rgba(0, 201, 177, .58);
+      animation-delay: 0s;
+    }
+
+    .cover-ring-2 {
+      width: 104px;
+      height: 104px;
+      border-color: rgba(212, 169, 78, .4);
+      animation-delay: 1.13s;
+    }
+
+    .cover-ring-3 {
+      width: 136px;
+      height: 136px;
+      border-color: rgba(106, 33, 168, .28);
+      animation-delay: 2.27s;
+    }
+
+    @keyframes ripplePulse {
+      0% {
+        opacity: .85;
+        transform: scale(.6);
+      }
+
+      100% {
+        opacity: 0;
+        transform: scale(1.5);
+      }
+    }
+
+    /* ── Photo: hidden by default, cinematic entry on open ── */
     .oyster-shell img {
+      position: absolute;
+      inset: 0;
       width: 100%;
       height: 100%;
       object-fit: cover;
-      opacity: .82;
+      opacity: 0;
+      transform: scale(1.12);
+      z-index: 1;
       background: linear-gradient(135deg, #0a2a4a, #1a0533);
-      transition: transform .45s ease, opacity .45s ease;
+      /* Delayed so cover exits first */
+      transition:
+        transform .68s cubic-bezier(.23, 1, .32, 1) .28s,
+        opacity .58s ease .28s;
     }
 
     .oyster.open .oyster-shell img {
-      transform: scale(1.07);
-      opacity: 1
+      opacity: 1;
+      transform: scale(1);
     }
 
     .oyster-label {
@@ -1496,29 +1676,54 @@
       <p class="tap-hint fade-up">Tap the oysters to reveal treasures&#8230;</p>
       <div class="gallery-grid" id="galleryGrid">
         <div class="oyster click-sound" id="oys1">
-          <div class="oyster-shell"><img src="photo1.jpg" alt="Memory 1" onerror="this.style.minHeight='100%'" /></div>
+          <div class="oyster-shell">
+            <div class="oyster-cover">
+              <div class="cover-ring cover-ring-1"></div>
+              <div class="cover-ring cover-ring-2"></div>
+              <div class="cover-ring cover-ring-3"></div>
+              <div class="cover-core"></div>
+            </div>
+            <img src="photo1.jpg" alt="Memory 1" onerror="this.style.minHeight='100%'" />
+          </div>
           <p class="oyster-label">That Smile hasn't changed a bit</p>
         </div>
         <div class="oyster click-sound" id="oys2">
-          <div class="oyster-shell"><img src="photo2.jpg" alt="Memory 2" onerror="this.style.minHeight='100%'" /></div>
+          <div class="oyster-shell">
+            <div class="oyster-cover">
+              <div class="cover-ring cover-ring-1"></div>
+              <div class="cover-ring cover-ring-2"></div>
+              <div class="cover-ring cover-ring-3"></div>
+              <div class="cover-core"></div>
+            </div>
+            <img src="photo2.jpg" alt="Memory 2" onerror="this.style.minHeight='100%'" />
+          </div>
           <p class="oyster-label">Can't get over that cute smile</p>
         </div>
-  <div class="oyster click-sound" id="oys3">
+        <div class="oyster click-sound" id="oys3">
           <div class="oyster-shell">
-            <!-- Magical Cover for Photo 3 -->
-            <div class="shell-cover"><div class="glowing-pearl"></div></div>
+            <div class="oyster-cover">
+              <div class="cover-ring cover-ring-1"></div>
+              <div class="cover-ring cover-ring-2"></div>
+              <div class="cover-ring cover-ring-3"></div>
+              <div class="cover-core"></div>
+            </div>
             <img src="photo3.png" alt="Memory 3" onerror="this.style.minHeight='100%'" />
           </div>
           <p class="oyster-label">Lalalaa... Hehe</p>
         </div>
         <div class="oyster click-sound" id="oys4">
           <div class="oyster-shell">
-            <!-- Magical Cover for Photo 4 -->
-            <div class="shell-cover"><div class="glowing-pearl"></div></div>
+            <div class="oyster-cover">
+              <div class="cover-ring cover-ring-1"></div>
+              <div class="cover-ring cover-ring-2"></div>
+              <div class="cover-ring cover-ring-3"></div>
+              <div class="cover-core"></div>
+            </div>
             <img src="photo4.png" alt="Memory 4" onerror="this.style.minHeight='100%'" />
           </div>
           <p class="oyster-label">How can we forget the queen</p>
         </div>
+      </div>
       <div class="typewriter-wrap" id="typewriterWrap">
         <div class="typewriter-text" id="typewriterText"><span class="tw-caret" id="twCaret"></span></div>
       </div>
@@ -1534,7 +1739,7 @@
         <div class="shell-bg">
           <div class="shell-spiral">&#128026;</div>
           <p class="player-title">Something truly special</p>
-           <p class="player-title">(Phele upar ka flute band kariye)</p>
+          <p class="player-title">(Phele upar ka flute band kariye)</p>
           <audio id="songAudio">
             <source src="song.mp3" type="audio/mpeg" />
           </audio>
@@ -1656,15 +1861,16 @@
     </div>
   </section>
 
-<section id="wishwell">
+  <section id="wishwell">
     <div class="wishwell-content">
       <p class="section-label fade-up" id="wellLabel" style="opacity:1;color:var(--gold)">&#10022; THE WISH WELL
         &#10022;</p>
-      <h2 class="wishwell-title fade-up" id="wellTitle">Keep shining like a star,<br />keep flowing like the ocean..</h2>
+      <h2 class="wishwell-title fade-up" id="wellTitle">Keep shining like a star,<br />keep flowing like the ocean..
+      </h2>
       <p class="wishwell-sub fade-up" id="wellSub">
         The universe has its favorites,<br />
         and you look like one of them<br />
-        Happy Birthday, Tannu 
+        Happy Birthday, Tannu
       </p>
       <div class="footer-divider"></div>
       <div class="footer-peacock fade-up" id="footerMark">
@@ -1825,83 +2031,13 @@
       }
     })();
 
-    // OYSTERS
+    // OYSTERS — independent toggle (all 4 can be open simultaneously)
     document.querySelectorAll('.oyster').forEach(function (card) {
       card.addEventListener('click', function () {
-        document.querySelectorAll('.oyster.open').forEach(function (o) { if (o !== card) o.classList.remove('open'); });
         card.classList.toggle('open');
       });
     });
 
-    #oys3 .shell-cover, 
-    #oys4 .shell-cover {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(135deg, #041520, #0a2a4a, #030b1a);
-      border: 1px solid rgba(212, 169, 78, 0.2);
-      z-index: 5;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: opacity 0.6s cubic-bezier(0.23, 1, 0.32, 1), transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
-      box-shadow: inset 0 0 40px rgba(0, 201, 177, 0.15);
-    }
-
-    .glowing-pearl {
-      position: relative;
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      background: radial-gradient(circle at 35% 35%, #ffffff, #f5e0a0 40%, #d4a94e 80%);
-      box-shadow: 0 0 15px rgba(212, 169, 78, 0.8), 0 0 30px rgba(0, 201, 177, 0.6), inset -3px -3px 8px rgba(0, 0, 0, 0.3);
-      animation: pearlFloat 2.5s ease-in-out infinite alternate;
-    }
-
-    .glowing-pearl::before {
-      content: '';
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
-      border: 1px solid rgba(0, 201, 177, 0.6);
-      animation: ringExpand 2s linear infinite;
-      pointer-events: none;
-    }
-
-    @keyframes pearlFloat {
-      0% { transform: translateY(-3px) scale(0.95); box-shadow: 0 0 10px rgba(212, 169, 78, 0.5), 0 0 20px rgba(0, 201, 177, 0.4); }
-      100% { transform: translateY(3px) scale(1.05); box-shadow: 0 0 25px rgba(212, 169, 78, 0.9), 0 0 45px rgba(0, 201, 177, 0.7); }
-    }
-
-    @keyframes ringExpand {
-      0% { width: 28px; height: 28px; opacity: 1; }
-      100% { width: 80px; height: 80px; opacity: 0; }
-    }
-
-    /* Photo 3 aur 4 chupi rahengi shuru mein */
-    #oys3 .oyster-shell img, 
-    #oys4 .oyster-shell img {
-      opacity: 0;
-      transform: scale(0.8);
-      transition: transform 0.6s ease, opacity 0.6s ease;
-    }
-
-    /* Click hone par cover gayab aur photo reveal */
-    #oys3.open .shell-cover, 
-    #oys4.open .shell-cover {
-      opacity: 0;
-      transform: scale(1.4) translateY(-20px);
-      pointer-events: none;
-    }
-
-    #oys3.open .oyster-shell img, 
-    #oys4.open .oyster-shell img {
-      opacity: 1;
-      transform: scale(1.07);
-    }
     // TYPEWRITER — beautiful segmented message
     (function () {
       var segments = [
