@@ -1503,15 +1503,22 @@
           <div class="oyster-shell"><img src="photo2.jpg" alt="Memory 2" onerror="this.style.minHeight='100%'" /></div>
           <p class="oyster-label">Can't get over that cute smile</p>
         </div>
-        <div class="oyster click-sound" id="oys3">
-          <div class="oyster-shell"><img src="photo3.png" alt="Memory 3" onerror="this.style.minHeight='100%'" /></div>
+  <div class="oyster click-sound" id="oys3">
+          <div class="oyster-shell">
+            <!-- Magical Cover for Photo 3 -->
+            <div class="shell-cover"><div class="glowing-pearl"></div></div>
+            <img src="photo3.png" alt="Memory 3" onerror="this.style.minHeight='100%'" />
+          </div>
           <p class="oyster-label">Lalalaa... Hehe</p>
         </div>
         <div class="oyster click-sound" id="oys4">
-          <div class="oyster-shell"><img src="photo4.png" alt="Memory 4" onerror="this.style.minHeight='100%'" /></div>
+          <div class="oyster-shell">
+            <!-- Magical Cover for Photo 4 -->
+            <div class="shell-cover"><div class="glowing-pearl"></div></div>
+            <img src="photo4.png" alt="Memory 4" onerror="this.style.minHeight='100%'" />
+          </div>
           <p class="oyster-label">How can we forget the queen</p>
         </div>
-      </div>
       <div class="typewriter-wrap" id="typewriterWrap">
         <div class="typewriter-text" id="typewriterText"><span class="tw-caret" id="twCaret"></span></div>
       </div>
@@ -1826,6 +1833,75 @@
       });
     });
 
+    #oys3 .shell-cover, 
+    #oys4 .shell-cover {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, #041520, #0a2a4a, #030b1a);
+      border: 1px solid rgba(212, 169, 78, 0.2);
+      z-index: 5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.6s cubic-bezier(0.23, 1, 0.32, 1), transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+      box-shadow: inset 0 0 40px rgba(0, 201, 177, 0.15);
+    }
+
+    .glowing-pearl {
+      position: relative;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, #ffffff, #f5e0a0 40%, #d4a94e 80%);
+      box-shadow: 0 0 15px rgba(212, 169, 78, 0.8), 0 0 30px rgba(0, 201, 177, 0.6), inset -3px -3px 8px rgba(0, 0, 0, 0.3);
+      animation: pearlFloat 2.5s ease-in-out infinite alternate;
+    }
+
+    .glowing-pearl::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      border: 1px solid rgba(0, 201, 177, 0.6);
+      animation: ringExpand 2s linear infinite;
+      pointer-events: none;
+    }
+
+    @keyframes pearlFloat {
+      0% { transform: translateY(-3px) scale(0.95); box-shadow: 0 0 10px rgba(212, 169, 78, 0.5), 0 0 20px rgba(0, 201, 177, 0.4); }
+      100% { transform: translateY(3px) scale(1.05); box-shadow: 0 0 25px rgba(212, 169, 78, 0.9), 0 0 45px rgba(0, 201, 177, 0.7); }
+    }
+
+    @keyframes ringExpand {
+      0% { width: 28px; height: 28px; opacity: 1; }
+      100% { width: 80px; height: 80px; opacity: 0; }
+    }
+
+    /* Photo 3 aur 4 chupi rahengi shuru mein */
+    #oys3 .oyster-shell img, 
+    #oys4 .oyster-shell img {
+      opacity: 0;
+      transform: scale(0.8);
+      transition: transform 0.6s ease, opacity 0.6s ease;
+    }
+
+    /* Click hone par cover gayab aur photo reveal */
+    #oys3.open .shell-cover, 
+    #oys4.open .shell-cover {
+      opacity: 0;
+      transform: scale(1.4) translateY(-20px);
+      pointer-events: none;
+    }
+
+    #oys3.open .oyster-shell img, 
+    #oys4.open .oyster-shell img {
+      opacity: 1;
+      transform: scale(1.07);
+    }
     // TYPEWRITER — beautiful segmented message
     (function () {
       var segments = [
